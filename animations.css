@@ -1,0 +1,590 @@
+/**
+ * Оптимизированные анимации для документации
+ * Облегченная версия с меньшей нагрузкой на CPU/GPU
+ */
+
+/* === Основные анимации === */
+
+/* Плавное появление элементов - упрощенная версия */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); } /* Уменьшаем дистанцию */
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+/* Пульсация - более плавная и менее ресурсоемкая */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); } /* Увеличиваем масштабирование с 1.03 до 1.05 */
+    100% { transform: scale(1); }
+}
+
+/* Волна - упрощаем анимацию */
+@keyframes wave {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-3px); } /* Уменьшаем амплитуду движения */
+    100% { transform: translateY(0); }
+}
+
+/* Блики на кнопках - оптимизированная версия, меньше нагрузки на GPU */
+@keyframes shine {
+    0% { background-position: -100% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Градиентная анимация для заголовков - замедляем для меньшей нагрузки */
+@keyframes gradientBg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Анимация печатного текста */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* Плавающие элементы - упрощенная версия */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); } /* Уменьшаем высоту с -10px до -10px */
+    100% { transform: translateY(0px); }
+}
+
+/* Появление с увеличением - упрощенная версия */
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.9); } /* Изменяем с 0.8 на 0.9 для менее резкого эффекта */
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Вращение - сохраняем без изменений для лоадера */
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Анимация для частиц - упрощенная версия */
+@keyframes particle {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.8; } /* Начинаем с меньшей прозрачности */
+    100% { transform: translate(var(--x, 30px), var(--y, -30px)) scale(0); opacity: 0; } /* Меньшая дистанция перемещения */
+}
+
+/* Анимация вибрации для элементов с ошибкой - упрощенная версия */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25%, 75% { transform: translateX(-4px); } /* Упрощаем до 2 движений вместо 5 и уменьшаем амплитуду */
+    50% { transform: translateX(4px); }
+}
+
+/* Анимация для фона страницы - замедляем для экономии ресурсов */
+@keyframes gradientMove {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+/* Анимация морфинга текста - упрощенная версия */
+@keyframes textMorph {
+    0%, 100% { filter: blur(0px); }
+    50% { filter: blur(1px); } /* Уменьшаем размытие с 2px до 1px */
+}
+
+/* === Применение анимаций === */
+
+/* Анимированный фон - замедляем анимацию для экономии ресурсов */
+body {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef, #dee2e6, #f8f9fa);
+    background-size: 400% 400%;
+    animation: gradientMove 25s ease infinite; /* Увеличиваем длительность с 15с до 25с */
+    will-change: background-position; /* Оптимизация для GPU */
+}
+
+/* Анимация для заголовка - добавляем will-change для производительности */
+.app-container h1 {
+    background: linear-gradient(45deg, #6c5ce7, #a29bfe, #fd79a8, #6c5ce7);
+    background-size: 300% 300%;
+    animation: gradientBg 10s ease infinite; /* Увеличиваем длительность с 6с до 10с */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    will-change: background-position; /* Оптимизация для GPU */
+}
+
+/* Анимация для заголовков разделов */
+.tab-content h3 {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+/* Анимация для вкладок - используем transform вместо width для лучшей производительности */
+.nav-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #6c5ce7, #fd79a8);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+.nav-link:hover:after,
+.nav-link.active:after {
+    transform: scaleX(1);
+}
+
+/* Анимация для карточек в словаре - оптимизация с will-change */
+.card {
+    animation: fadeIn 0.5s ease forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform, box-shadow;
+}
+
+.card:hover {
+    transform: translateY(-3px) scale(1.01); /* Уменьшаем эффект с -5px до -3px и 1.02 до 1.01 */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1); /* Уменьшаем размер тени */
+}
+
+/* Стилизованная анимация для кнопок - оптимизированная версия */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 1;
+    will-change: transform;
+}
+
+.btn-primary:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+    animation: shine 4s infinite; /* Увеличиваем длительность с 3с до 4с */
+    z-index: -1;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px); /* Уменьшаем с -3px до -2px */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15); /* Уменьшаем размер тени */
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
+}
+
+/* Анимация для текстовых полей - упрощаем эффект */
+.form-control {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.form-control:focus {
+    transform: translateY(-1px); /* Уменьшаем с -2px до -1px */
+    border-color: #6c5ce7;
+    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.1); /* Уменьшаем размер тени */
+}
+
+/* Эффект печатной машинки для результатов перевода */
+.translated-text {
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    animation: typing 2s steps(40, end) forwards;
+    border-right: 3px solid #6c5ce7;
+    padding-right: 5px;
+    animation-delay: 0.2s;
+    will-change: width;
+}
+
+/* Подсветка сленговых слов - упрощаем анимацию */
+.slang-word {
+    position: relative;
+    color: #6c5ce7;
+    font-weight: bold;
+    animation: pulse 3s infinite; /* Увеличиваем длительность с 2с до 3с */
+}
+
+.slang-word:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #6c5ce7, #fd79a8);
+    animation: wave 4s infinite; /* Увеличиваем длительность с 3с до 4с */
+}
+
+.slang-meaning {
+    display: inline-block;
+    font-style: italic;
+    color: #6c5ce7;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Анимированные частицы при успешном ответе в игре - ограничиваем количество частиц */
+.game-success {
+    position: relative;
+}
+
+/* Используем только одну частицу вместо двух для повышения производительности */
+.game-success:before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #6c5ce7;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    animation: particle 1s ease-out forwards;
+    opacity: 0;
+}
+
+/* Удаляем вторую частицу для повышения производительности
+.game-success:after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #fd79a8;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    animation: particle 1.2s ease-out 0.2s forwards;
+    opacity: 0;
+    --x: -40px;
+    --y: -30px;
+}
+*/
+
+/* Анимация для правильного ответа */
+.game-option.correct {
+    animation: pulse 1s;
+}
+
+/* Анимация для неправильного ответа */
+.game-option.incorrect {
+    animation: shake 0.5s;
+}
+
+/* Анимация для элементов игры */
+.game-container .card {
+    animation: zoomIn 0.5s ease forwards;
+}
+
+/* Анимация для лого */
+.logo-container {
+    animation: float 4s ease-in-out infinite; /* Увеличиваем длительность с 3с до 4с */
+}
+
+/* Анимированный счетчик в игре */
+.score-display {
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+.score-display.update {
+    animation: pulse 0.5s;
+}
+
+/* Анимация для подсказок - оптимизированная версия */
+.tooltip-custom {
+    position: relative;
+}
+
+.tooltip-text {
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1); /* Уменьшаем размер тени */
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 100;
+    width: max-content;
+    will-change: transform, opacity;
+}
+
+.tooltip-custom:hover .tooltip-text {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+/* Анимированная загрузка */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(108, 92, 231, 0.1); /* Уменьшаем толщину границы с 4px до 3px */
+    border-left-color: #6c5ce7;
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
+    will-change: transform;
+}
+
+/* Анимация для нотификаций - оптимизированная версия */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 350px;
+    padding: 15px 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateX(100%);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+}
+
+.notification.visible {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+}
+
+.notification-content i {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+/* Эффект морфинга для заголовка - упрощенная версия */
+.morphing-title {
+    animation: textMorph 4s infinite; /* Увеличиваем длительность с 3с до 4с */
+}
+
+/* Специальный текст с анимацией блестящей границы - оптимизированная версия */
+.special-text {
+    position: relative;
+    padding: 10px;
+}
+
+.special-text:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, #6c5ce7, #fd79a8, #6c5ce7) 1;
+    animation: gradientBg 10s ease infinite; /* Увеличиваем длительность с 6с до 10с */
+}
+
+/* Добавляем поддержку для отключения анимаций при низкой производительности */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    body {
+        animation: none !important;
+    }
+    
+    .app-container h1, .special-text:before, .morphing-title {
+        animation: none !important;
+    }
+    
+    .loading-spinner {
+        animation: rotate 2s linear infinite !important;
+    }
+    
+    .btn-primary:before {
+        display: none;
+    }
+    
+    .card:hover, .btn-primary:hover, .form-control:focus {
+        transform: none !important;
+    }
+    
+    .translated-text {
+        width: 100% !important;
+        animation: none !important;
+    }
+    
+    .logo-container, .slang-word, .slang-word:after {
+        animation: none !important;
+    }
+    
+    .game-success:before, .game-success:after {
+        display: none;
+    }
+}
+
+/* Стили для основных анимированных элементов */
+.animated-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: calc(var(--card-index, 0) * 0.1s);
+}
+
+.animated-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.animated-highlight {
+    position: relative;
+}
+
+.animated-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    animation: pulse 2s infinite;
+    will-change: opacity, transform;
+}
+
+.morphing-title {
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    background-size: 200% 200%;
+    animation: gradientBg 5s ease infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Анимация для кнопок */
+.button-animated:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+}
+
+.button-animated:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(108, 92, 231, 0.4);
+}
+
+/* Плавное появление и исчезание элементов */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+/* Простые декоративные эффекты */
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+.rotating {
+    animation: rotate 10s linear infinite;
+}
+
+/* Индикаторы загрузки */
+.loading-bar {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+.loading-bar::after {
+    content: '';
+    position: absolute;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    animation: loading 1.5s infinite;
+    will-change: transform;
+}
+
+@keyframes loading {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(250%);
+    }
+}
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(108, 92, 231, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: rotate 1s linear infinite;
+    will-change: transform;
+}
+
+/* Оптимизация для слабых устройств */
+@media (prefers-reduced-motion), (max-width: 768px) {
+    .animated-card, 
+    .animated-highlight::after,
+    .morphing-title,
+    .floating,
+    .rotating {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .animated-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .animated-highlight::after {
+        opacity: 1;
+        height: 2px;
+    }
+    
+    .loading-bar::after,
+    .spinner {
+        animation-duration: 2s;
+    }
+} 

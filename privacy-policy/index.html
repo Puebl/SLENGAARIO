@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика конфиденциальности - SLANGARIO</title>
+    <!-- Прелоад важных ресурсов -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="../animations.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --accent-color: #fd79a8;
+            --text-color: #2d3436;
+            --bg-color: #f8fafc;
+            --card-color: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23f8fafc" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,192C384,192,480,160,576,138.7C672,117,768,107,864,122.7C960,139,1056,181,1152,170.7C1248,160,1344,96,1392,64L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .back-link i {
+            margin-right: 5px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .policy-card {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .policy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .policy-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .policy-card h3 i {
+            margin-right: 10px;
+        }
+
+        .policy-card p {
+            margin-bottom: 15px;
+        }
+
+        .policy-card ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #64748b;
+            margin-top: 50px;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Стили для фоновых фигур */
+        .background-shapes {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .shape {
+            position: fixed;
+            opacity: 0.2;
+            filter: blur(8px);
+            z-index: -1;
+        }
+        
+        .shape-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-color);
+        }
+        
+        .shape-square {
+            width: 70px;
+            height: 70px;
+            background: var(--secondary-color);
+        }
+        
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 80px solid var(--accent-color);
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 0;
+            }
+            
+            .back-link {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .background-shapes {
+                display: none;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+            
+            .policy-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Фоновые фигуры для анимации -->
+    <div class="background-shapes">
+        <div class="shape shape-circle" style="top: 10%; left: 5%;"></div>
+        <div class="shape shape-square" style="top: 20%; right: 10%;"></div>
+        <div class="shape shape-triangle" style="bottom: 15%; left: 15%;"></div>
+        <div class="shape shape-circle" style="bottom: 20%; right: 20%;"></div>
+        <div class="shape shape-square" style="top: 50%; left: 25%;"></div>
+    </div>
+    
+    <div class="notification" id="notification" style="display: none;">
+        <div class="notification-content">
+            <i class="fas fa-info-circle"></i>
+            <span id="notification-text">Уведомление</span>
+        </div>
+    </div>
+
+    <header class="header">
+        <a href="../" class="back-link"><i class="fas fa-arrow-left"></i> Назад</a>
+        <div class="container">
+            <h1 class="morphing-title">Политика конфиденциальности</h1>
+            <p class="subtitle">Как мы защищаем ваши данные в SLANGARIO</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="content-section">
+            <h2 class="section-title">Политика конфиденциальности SLANGARIO</h2>
+            
+            <div class="policy-card">
+                <h3><i class="fas fa-shield-alt"></i> Что такое эта политика?</h3>
+                <p>
+                    Привет! Это наша политика конфиденциальности - документ, в котором мы рассказываем, 
+                    какие данные собираем, как их используем и как защищаем. Мы постарались сделать всё максимально 
+                    прозрачно и понятно. Команда SLANGARIO уважает вашу приватность - для нас это действительно важно!
+                </p>
+            </div>
+            
+            <div class="policy-card">
+                <h3><i class="fas fa-database"></i> Какие данные мы собираем?</h3>
+                <p>Когда вы используете SLANGARIO, мы можем собирать:</p>
+                <ul>
+                    <li><strong>Данные аккаунта:</strong> Ваш логин, адрес электронной почты и пароль (хранится в зашифрованном виде)</li>
+                    <li><strong>Информация о пользовании:</strong> История поисков сленговых выражений, которую используем для улучшения сервиса</li>
+                    <li><strong>Технические данные:</strong> Информация о вашем устройстве и браузере для оптимизации работы сайта</li>
+                    <li><strong>Файлы cookies:</strong> Небольшие текстовые файлы, которые помогают нам запоминать ваши настройки</li>
+                </ul>
+                <p>Мы <strong>никогда</strong> не собираем:</p>
+                <ul>
+                    <li>Ваши личные документы (паспорт, СНИЛС и т.д.)</li>
+                    <li>Финансовую информацию и данные банковских карт</li>
+                    <li>Информацию о ваших личных перепискрах с другими людьми</li>
+                </ul>
+            </div>
+            
+            <div class="policy-card">
+                <h3><i class="fas fa-cog"></i> Как мы используем ваши данные?</h3>
+                <p>Собранная информация помогает нам:</p>
+                <ul>
+                    <li>Предоставлять вам доступ к сервису и его функциям</li>
+                    <li>Запоминать ваши настройки и предпочтения</li>
+                    <li>Улучшать алгоритмы перевода сленга</li>
+                    <li>Создавать персонализированные рекомендации</li>
+                    <li>Обеспечивать безопасность вашего аккаунта</li>
+                    <li>Анализировать, какие функции сервиса наиболее популярны</li>
+                </ul>
+            </div>
+            
+            <div class="policy-card">
+                <h3><i class="fas fa-user-shield"></i> Защита ваших данных</h3>
+                <p>
+                    Мы серьезно относимся к безопасности! Вот что мы делаем для защиты ваших данных:
+                </p>
+                <ul>
+                    <li>Используем современные методы шифрования для хранения паролей</li>
+                    <li>Применяем защищенное HTTPS-соединение</li>
+                    <li>Регулярно обновляем системы безопасности</li>
+                    <li>Ограничиваем доступ к персональным данным среди сотрудников</li>
+                    <li>Проводим регулярное тестирование на уязвимости</li>
+                </ul>
+            </div>
+            
+            <div class="policy-card">
+                <h3><i class="fas fa-share-alt"></i> Передача данных третьим лицам</h3>
+                <p>
+                    Мы не продаем ваши данные третьим лицам. Никогда.
+                </p>
+                <p>
+                    В некоторых случаях мы можем передавать ограниченную информацию нашим партнерам:
+                </p>
+                <ul>
+                    <li>Сервисам аналитики для улучшения работы сайта (Google Analytics, Яндекс.Метрика)</li>
+                    <li>Облачным хранилищам, где размещены наши серверы (с соблюдением всех мер безопасности)</li>
+                    <li>По запросу правоохранительных органов (когда этого требует закон)</li>
+                </ul>
+            </div>
+            
+            <div class="policy-card">
+                <h3><i class="fas fa-cookie-bite"></i> Про файлы cookie</h3>
+                <p>
+                    Мы используем файлы cookie - это небольшие текстовые файлы, которые хранятся в вашем браузере.
+                    Они помогают нам запоминать ваши настройки и делать сайт удобнее.
+                </p>
+                <p>
+                    Вы всегда можете отключить cookies в настройках вашего браузера, но учтите, 
+                    что некоторые функции сайта могут перестать работать.
+                </p>
+            </div>
+            
+            <div class="policy-card">
+                <h3><i class="fas fa-user-clock"></i> Как долго мы храним данные?</h3>
+                <p>
+                    Мы храним ваши данные, пока вы используете наш сервис. Если вы удалите свой аккаунт, 
+                    мы удалим всю вашу персональную информацию в течение 30 дней.
+                </p>
+                <p>
+                    Некоторые анонимные данные (например, статистика использования) могут храниться дольше 
+                    для аналитических целей, но они не могут быть связаны с конкретным пользователем.
+                </p>
+            </div>
+            
+            <div class="policy-card">
+                <h3><i class="fas fa-child"></i> Дети и подростки</h3>
+                <p>
+                    SLANGARIO предназначен для пользователей старше 13 лет. Если вам меньше 18 лет, 
+                    пожалуйста, получите согласие родителей на использование нашего сервиса.
+                </p>
+                <p>
+                    Мы особенно внимательно относимся к защите данных несовершеннолетних пользователей 
+                    и не собираем больше информации, чем необходимо для работы сервиса.
+                </p>
+            </div>
+            
+            <div class="policy-card">
+                <h3><i class="fas fa-gavel"></i> Ваши права</h3>
+                <p>У вас есть право:</p>
+                <ul>
+                    <li>Знать, какие данные о вас мы храним</li>
+                    <li>Получить копию этих данных</li>
+                    <li>Исправить неточную информацию</li>
+                    <li>Удалить свои данные (право на забвение)</li>
+                    <li>Ограничить обработку ваших данных</li>
+                    <li>Возразить против использования ваших данных в маркетинговых целях</li>
+                </ul>
+                <p>
+                    Для реализации этих прав напишите нам на адрес: <a href="mailto:peulon14@gmail.com">peulon14@gmail.com</a>
+                </p>
+            </div>
+            
+            <div class="policy-card">
+                <h3><i class="fas fa-pencil-alt"></i> Изменения в политике конфиденциальности</h3>
+                <p>
+                    Мы можем обновлять нашу политику конфиденциальности. Важные изменения мы будем сообщать вам 
+                    через уведомления на сайте или по электронной почте.
+                </p>
+                <p>
+                    Последнее обновление: 22 марта 2025 года
+                </p>
+            </div>
+            
+            <div class="policy-card">
+                <h3><i class="fas fa-envelope"></i> Связь с нами</h3>
+                <p>
+                    Если у вас есть вопросы о конфиденциальности или о том, как мы обрабатываем ваши данные, 
+                    пишите нам на <a href="mailto:peulon14@gmail.com">peulon14@gmail.com</a>
+                </p>
+                <p>
+                    Мы обязательно ответим в течение 3 рабочих дней!
+                </p>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 SLANGARIO. Все права защищены. <a href="../">Вернуться на главную</a></p>
+        </div>
+    </footer>
+
+    <!-- Добавляем скрипты для анимаций в конец файла перед </body> -->
+    <script>
+        // Простой скрипт для анимации элементов
+        document.addEventListener('DOMContentLoaded', function() {
+            // Анимация для заголовков
+            const titles = document.querySelectorAll('.section-title, .morphing-title');
+            titles.forEach((title, index) => {
+                title.style.opacity = '0';
+                title.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    title.style.opacity = '1';
+                    title.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+            
+            // Анимация для карточек политики
+            const cards = document.querySelectorAll('.policy-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 + 100 * index);
+            });
+        });
+    </script>
+    
+    <!-- Скрипты для анимаций -->
+    <script src="../background-effects.js"></script>
+</body>
+</html> 

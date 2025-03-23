@@ -1,0 +1,2612 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация проекта "SLANGARIO"</title>
+    <!-- Прелоад важных ресурсов для улучшения производительности -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="animations.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --accent-color: #fd79a8;
+            --text-color: #2d3436;
+            --bg-color: #f8fafc;
+            --card-color: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 0 100px;
+            text-align: center;
+            position: relative;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 50px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23f8fafc" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,192C384,192,480,160,576,138.7C672,117,768,107,864,122.7C960,139,1056,181,1152,170.7C1248,160,1344,96,1392,64L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 4px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            margin-top: 15px;
+            color: var(--text-color);
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            padding: 30px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .card-arrow {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-arrow {
+            transform: translateX(5px);
+        }
+
+        .search-section {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .search-container {
+            display: flex;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+        
+        #search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px 0 0 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        #search-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 10px 10px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #search-button i {
+            margin-right: 8px;
+        }
+        
+        #search-button:hover {
+            background: var(--secondary-color);
+        }
+        
+        .search-results-container {
+            max-width: 800px;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+        }
+        
+        .search-result-item {
+            background: white;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+            display: block;
+        }
+        
+        .search-result-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-result-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .search-result-path {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        
+        .search-result-snippet {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .search-highlight {
+            background-color: rgba(253, 121, 168, 0.2);
+            padding: 0 2px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        
+        .search-no-results {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+        }
+        
+        .search-loading {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .search-loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .contact-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .contact-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .contact-card p {
+            color: #64748b;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #64748b;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        /* Стили для фоновых фигур */
+        .background-shapes {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .shape {
+            position: fixed;
+            opacity: 0.2;
+            filter: blur(8px);
+            z-index: -1;
+        }
+        
+        .shape-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-color);
+        }
+        
+        .shape-square {
+            width: 70px;
+            height: 70px;
+            background: var(--secondary-color);
+        }
+        
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 80px solid var(--accent-color);
+        }
+        
+        /* Стили для анимированных элементов */
+        .animated-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .card-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .morphing-title {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            background-size: 200% 200%;
+            animation: gradientBg 5s ease infinite;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        @keyframes gradientBg {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 40px 0 80px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .contact-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .background-shapes {
+                display: none;
+            }
+        }
+
+        /* Стили для ИИ-чата */
+        .ai-chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            animation: pulse-attention 2s infinite;
+        }
+        
+        @keyframes pulse-attention {
+            0% {
+                box-shadow: 0 0 0 0 rgba(var(--primary-color-rgb), 0.5);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(var(--primary-color-rgb), 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(var(--primary-color-rgb), 0);
+            }
+        }
+        
+        .ai-chat-button i {
+            font-size: 24px;
+        }
+        
+        .ai-chat-container {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.9);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .ai-chat-container.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        
+        .ai-chat-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .ai-chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ai-chat-avatar {
+            width: 36px;
+            height: 36px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+        
+        .ai-chat-title h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .ai-chat-title p {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .ai-chat-close {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        
+        .ai-chat-close:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .ai-chat-messages {
+            /* Существующие стили */
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            /* Улучшенные стили для прокрутки */
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) rgba(0,0,0,0.1);
+            max-height: 320px;
+            position: relative;
+        }
+        
+        /* Стилизуем скроллбар для лучшего визуального отображения */
+        .ai-chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .ai-chat-messages::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+        
+        .ai-chat-messages::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+        
+        .ai-chat-messages::-webkit-scrollbar-thumb:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .ai-message {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+            animation: message-fade-in 0.3s ease;
+        }
+        
+        @keyframes message-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .ai-message.user {
+            background-color: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .ai-message.bot {
+            background-color: white;
+            color: var(--text-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+            border: 1px solid #eee;
+        }
+        
+        .ai-message.thinking {
+            background-color: rgba(255, 255, 255, 0.7);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 12px 20px;
+        }
+        
+        .ai-message.thinking span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            opacity: 0.6;
+            animation: thinking-pulse 1.4s infinite ease-in-out;
+        }
+        
+        .ai-message.thinking span:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .ai-message.thinking span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .ai-message.thinking span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes thinking-pulse {
+            0%, 100% {
+                transform: scale(0.8);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+        
+        .ai-chat-input {
+            padding: 12px 15px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        .ai-chat-input input {
+            flex: 1;
+            border: none;
+            background-color: #f1f1f1;
+            padding: 12px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .ai-chat-input input:focus {
+            background-color: #e9e9e9;
+            box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.1);
+        }
+        
+        .ai-chat-send {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            flex-shrink: 0;
+        }
+        
+        .ai-chat-send:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+        
+        .ai-chat-send i {
+            font-size: 18px;
+        }
+        
+        @media (max-width: 768px) {
+            .ai-chat-container {
+                width: calc(100% - 40px);
+                height: 60vh;
+            }
+        }
+
+        /* Улучшенные стили для анимации печати */
+        .ai-message.bot {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ai-message.bot.typing {
+            min-height: 24px;
+            display: inline-block;
+        }
+        
+        .typing-animation {
+            display: inline-block;
+            position: relative;
+            height: 20px;
+            margin-top: 3px;
+        }
+        
+        .typing-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            margin-right: 4px;
+            animation: typing-dot-pulse 1.2s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing-dot-pulse {
+            0%, 100% {
+                transform: scale(0.7);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Эффект печатающегося текста */
+        .typewriter {
+            display: inline-block;
+            white-space: pre-wrap;
+            overflow: hidden;
+            border-right: 2px solid transparent;
+        }
+        
+        .typewriter.typing {
+            animation: cursor-blink 0.7s infinite;
+        }
+        
+        @keyframes cursor-blink {
+            0%, 100% {
+                border-right-color: transparent;
+            }
+            50% {
+                border-right-color: var(--primary-color);
+            }
+        }
+        
+        /* Индикатор ожидания ответа */
+        .ai-messages-status {
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+            padding: 5px 15px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .ai-messages-status.active {
+            opacity: 1;
+        }
+
+        /* Добавляем стили для прокрутки сообщений */
+        .message-content {
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 5px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) #f1f1f1;
+        }
+
+        .message-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .message-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .message-content::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        /* Стили для длинных сообщений */
+        .expandable-message {
+            position: relative;
+        }
+
+        .expand-button {
+            position: absolute;
+            right: 5px;
+            bottom: 2px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 11px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .expand-button:hover {
+            opacity: 1;
+        }
+
+        .expanded .message-content {
+            max-height: none;
+        }
+        
+        /* Стили для индикаторов прокрутки */
+        .scroll-indicator {
+            position: absolute;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            opacity: 0.7;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            z-index: 5;
+        }
+
+        .scroll-indicator:hover {
+            opacity: 1;
+        }
+
+        .scroll-up {
+            top: 40px;
+        }
+
+        .scroll-down {
+            bottom: 60px;
+        }
+
+        .ai-chat-messages-container {
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Стили для случая, когда пользователь просматривает историю сообщений */
+        .ai-chat-messages.user-viewing {
+            scroll-behavior: auto; /* Отключаем плавную прокрутку при чтении */
+        }
+
+        .telegram-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .telegram-link:hover {
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .telegram-link::after {
+            content: '\f061';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            margin-left: 5px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Фоновые фигуры для анимации -->
+    <div class="background-shapes">
+        <div class="shape shape-circle" style="top: 10%; left: 5%;"></div>
+        <div class="shape shape-square" style="top: 20%; right: 10%;"></div>
+        <div class="shape shape-triangle" style="bottom: 15%; left: 15%;"></div>
+        <div class="shape shape-circle" style="bottom: 20%; right: 20%;"></div>
+        <div class="shape shape-square" style="top: 50%; left: 25%;"></div>
+    </div>
+    
+    <div class="notification" id="notification" style="display: none;">
+        <div class="notification-content">
+            <i class="fas fa-info-circle me-2"></i>
+            <span id="notification-text">Уведомление</span>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo animated-highlight">SLANGARIO</div>
+            <p class="subtitle">Полная документация проекта с описанием функциональности, инструкцией по использованию и техническими деталями</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-section">
+            <h1 class="morphing-title">Документация</h1>
+            <p class="subtitle">SLANGARIO</p>
+            <p class="description">Полная документация по использованию и интеграции с сервисом перевода сленга.</p>
+        </section>
+        
+        <section class="documentation-sections">
+            <h2 class="section-title">Разделы документации</h2>
+            
+            <div class="card-grid">
+                <a href="overview/" class="card animated-card">
+                    <div class="card-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3>Обзор проекта</h3>
+                    <p>Общая информация о проекте, его цели и возможности</p>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+                
+                <a href="getting-started/" class="card animated-card">
+                    <div class="card-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Начало работы</h3>
+                    <p>Инструкции по использованию и доступу к веб-сайту SLANGARIO</p>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+                
+                <a href="user-guide/" class="card animated-card">
+                    <div class="card-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Руководство пользователя</h3>
+                    <p>Подробные инструкции по использованию всех функций веб-сайта</p>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+                
+                <a href="technical-docs/" class="card animated-card">
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Техническая документация</h3>
+                    <p>Техническая информация об архитектуре и компонентах системы</p>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+                
+                <a href="design/" class="card animated-card">
+                    <div class="card-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Дизайн-система</h3>
+                    <p>Информация по дизайну, UI компонентам и стилистике приложения</p>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+                
+                <a href="api/" class="card animated-card">
+                    <div class="card-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3>API документация</h3>
+                    <p>Описание API для интеграции сервиса с внешними приложениями</p>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <section class="search-section">
+            <h2 class="section-title">Поиск по документации</h2>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Введите запрос для поиска...">
+                <button id="search-button">
+                    <i class="fas fa-search"></i>
+                    Найти
+                </button>
+            </div>
+            <div id="search-results" class="search-results-container"></div>
+        </section>
+        
+        <section class="contact-section">
+            <h2 class="section-title">Нужна помощь?</h2>
+            <p>Если вы не нашли ответ на свой вопрос в документации, свяжитесь с нами:</p>
+            
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Электронная почта</h3>
+                    <p>peulon14@gmail.com</p>
+                </div>
+                
+                <div class="contact-card">
+                    <i class="fab fa-telegram"></i>
+                    <h3>Техническая поддержка</h3>
+                    <p><a href="https://t.me/Durov_Guru" target="_blank" class="telegram-link">Написать в Telegram</a></p>
+                </div>
+                
+                <div class="contact-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Сообщество</h3>
+                    <p><a href="https://t.me/+NEcfhrBjQ7MzY2Qy" target="_blank" class="telegram-link">Присоединиться к чату</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 SLANGARIO. Все права защищены. <a href="privacy-policy/">Политика конфиденциальности</a></p>
+        </div>
+    </footer>
+
+    <!-- Кнопка чата с ИИ -->
+    <div id="ai-chat-button" class="ai-chat-button">
+        <i class="fas fa-robot"></i>
+    </div>
+    
+    <!-- Контейнер чата с ИИ -->
+    <div id="ai-chat-container" class="ai-chat-container">
+        <div class="ai-chat-header">
+            <div class="ai-chat-header-left">
+                <div class="ai-chat-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="ai-chat-title">
+                    <h3>ИИ-ассистент</h3>
+                    <p>Помощник по документации SLANGARIO</p>
+                </div>
+            </div>
+            <div id="ai-chat-close" class="ai-chat-close">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="ai-chat-messages-container">
+            <div id="scroll-up" class="scroll-indicator scroll-up" style="display: none;">
+                <i class="fas fa-chevron-up"></i>
+            </div>
+            <div id="ai-chat-messages" class="ai-chat-messages">
+                <!-- Сообщения будут добавляться сюда динамически -->
+            </div>
+            <div id="scroll-down" class="scroll-indicator scroll-down" style="display: none;">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+        <div id="ai-messages-status" class="ai-messages-status">
+            ИИ печатает...
+        </div>
+        <div class="ai-chat-input">
+            <input type="text" id="ai-chat-input-field" placeholder="Напишите ваш вопрос...">
+            <button id="ai-chat-send" class="ai-chat-send">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработка поиска
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            const searchResults = document.getElementById('search-results');
+            
+            // Структура документации для поиска
+            const documentationStructure = [
+                {
+                    title: "Обзор SLANGARIO",
+                    path: "overview/",
+                    description: "Общая информация о проекте, его целях и возможностях."
+                },
+                {
+                    title: "Начало работы",
+                    path: "getting-started/",
+                    description: "Руководство по началу работы с SLANGARIO, доступу к сайту и основным функциям."
+                },
+                {
+                    title: "Руководство пользователя",
+                    path: "user-guide/",
+                    description: "Подробное руководство по использованию всех функций SLANGARIO."
+                },
+                {
+                    title: "Техническая документация",
+                    path: "technical-docs/",
+                    description: "Техническая информация о стеке технологий и архитектуре SLANGARIO."
+                },
+                {
+                    title: "API документация",
+                    path: "api/",
+                    description: "Документация по API SLANGARIO для разработчиков."
+                },
+                {
+                    title: "Руководство по дизайну",
+                    path: "design/",
+                    description: "Информация о дизайн-системе и стилях SLANGARIO."
+                },
+                {
+                    title: "Политика конфиденциальности",
+                    path: "privacy-policy/",
+                    description: "Информация о том, как SLANGARIO обрабатывает данные пользователей."
+                }
+            ];
+            
+            // Расширенная информация для поиска
+            const searchIndex = {
+                "overview": {
+                    keywords: ["обзор", "введение", "о проекте", "slangario", "сленг", "перевод"],
+                    content: "Обзор проекта SLANGARIO, включая основные функции, цели и возможности. Здесь вы найдете информацию о том, как использовать сервис для перевода современного сленга."
+                },
+                "getting-started": {
+                    keywords: ["начало", "старт", "доступ", "вход", "регистрация", "первые шаги"],
+                    content: "Руководство для новых пользователей SLANGARIO. Инструкции по доступу к сайту, созданию учетной записи и началу использования сервиса перевода сленга."
+                },
+                "user-guide": {
+                    keywords: ["руководство", "гайд", "помощь", "инструкция", "использование", "функции", "возможности"],
+                    content: "Подробное руководство пользователя SLANGARIO с описанием всех функций и возможностей. Здесь вы найдете информацию о поиске сленговых выражений, их переводе и использовании дополнительных возможностей."
+                },
+                "technical-docs": {
+                    keywords: ["техническая", "документация", "архитектура", "технологии", "стек", "react", "nodejs", "typescript", "python", "firebase", "sqlite"],
+                    content: "Техническая документация SLANGARIO для разработчиков. Описание архитектуры, используемого стека технологий (React, Node.js, TypeScript, Python, SQLite, Firebase) и принципов работы системы."
+                },
+                "api": {
+                    keywords: ["api", "интерфейс", "программный", "разработка", "интеграция", "запросы", "endpoints"],
+                    content: "Документация по API SLANGARIO. Описание доступных endpoints, форматов запросов и ответов, аутентификации и примеры использования для интеграции со сторонними приложениями."
+                },
+                "design": {
+                    keywords: ["дизайн", "интерфейс", "ui", "ux", "стили", "цвета", "шрифты", "компоненты"],
+                    content: "Руководство по дизайну SLANGARIO. Описание дизайн-системы, используемых цветов, шрифтов, компонентов интерфейса и принципов пользовательского опыта."
+                },
+                "privacy-policy": {
+                    keywords: ["конфиденциальность", "политика", "данные", "защита", "cookies", "персональная информация", "приватность"],
+                    content: "Политика конфиденциальности SLANGARIO. Информация о том, какие данные мы собираем, как их используем и защищаем, и ваши права в отношении ваших персональных данных."
+                }
+            };
+            
+            // Функция для осуществления поиска
+            function performSearch(query) {
+                if (query.length < 2) {
+                    searchResults.innerHTML = '<div class="search-no-results">Введите не менее 2 символов для поиска</div>';
+                    return;
+                }
+                
+                // Показываем индикатор загрузки
+                searchResults.innerHTML = `
+                    <div class="search-loading">
+                        <div class="search-loading-spinner"></div>
+                        <p>Выполняется поиск...</p>
+                    </div>
+                `;
+                
+                // Имитация задержки сетевого запроса
+                setTimeout(() => {
+                    const results = searchInDocumentation(query);
+                    displaySearchResults(results, query);
+                }, 500);
+            }
+            
+            // Функция для поиска по документации
+            function searchInDocumentation(query) {
+                query = query.toLowerCase();
+                const results = [];
+                
+                // Поиск по структуре и индексу
+                for (const section of documentationStructure) {
+                    const sectionKey = section.path.replace('/', '');
+                    const sectionData = searchIndex[sectionKey];
+                    
+                    if (!sectionData) continue;
+                    
+                    let score = 0;
+                    
+                    // Поиск в заголовке
+                    if (section.title.toLowerCase().includes(query)) {
+                        score += 10;
+                    }
+                    
+                    // Поиск в описании
+                    if (section.description.toLowerCase().includes(query)) {
+                        score += 5;
+                    }
+                    
+                    // Поиск в контенте
+                    if (sectionData.content.toLowerCase().includes(query)) {
+                        score += 3;
+                    }
+                    
+                    // Поиск по ключевым словам
+                    for (const keyword of sectionData.keywords) {
+                        if (keyword.includes(query) || query.includes(keyword)) {
+                            score += 2;
+                        }
+                    }
+                    
+                    if (score > 0) {
+                        results.push({
+                            ...section,
+                            score,
+                            content: sectionData.content,
+                            keywords: sectionData.keywords
+                        });
+                    }
+                }
+                
+                // Сортировка результатов по релевантности
+                results.sort((a, b) => b.score - a.score);
+                
+                return results;
+            }
+            
+            // Функция для отображения результатов поиска
+            function displaySearchResults(results, query) {
+                if (results.length === 0) {
+                    searchResults.innerHTML = `
+                        <div class="search-no-results">
+                            <p>По запросу "<strong>${query}</strong>" ничего не найдено</p>
+                            <p>Попробуйте использовать другие ключевые слова или проверьте правильность написания</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const resultsHTML = results.map(result => {
+                    // Подготавливаем фрагмент текста с подсветкой запроса
+                    let snippet = result.content;
+                    
+                    // Ограничиваем длину сниппета
+                    if (snippet.length > 150) {
+                        const queryIndex = snippet.toLowerCase().indexOf(query.toLowerCase());
+                        let startIndex = Math.max(0, queryIndex - 50);
+                        let endIndex = Math.min(snippet.length, startIndex + 150);
+                        
+                        if (startIndex > 0) {
+                            snippet = '...' + snippet.substring(startIndex, endIndex) + '...';
+                        } else {
+                            snippet = snippet.substring(startIndex, endIndex) + '...';
+                        }
+                    }
+                    
+                    // Подсвечиваем запрос в тексте
+                    const highlighted = highlightText(snippet, query);
+                    
+                    return `
+                        <a href="${result.path}" class="search-result-item">
+                            <div class="search-result-title">${highlightText(result.title, query)}</div>
+                            <div class="search-result-path">/${result.path}</div>
+                            <div class="search-result-snippet">${highlighted}</div>
+                        </a>
+                    `;
+                }).join('');
+                
+                searchResults.innerHTML = `
+                    <div class="search-results-header">
+                        <p>Найдено результатов: <strong>${results.length}</strong></p>
+                    </div>
+                    ${resultsHTML}
+                `;
+            }
+            
+            // Функция для подсветки текста запроса
+            function highlightText(text, query) {
+                if (!query || query.length < 2) return text;
+                
+                const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+                return text.replace(regex, '<span class="search-highlight">$1</span>');
+            }
+            
+            // Экранирование спецсимволов для регулярных выражений
+            function escapeRegExp(string) {
+                return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }
+            
+            // Обработчик нажатия на кнопку поиска
+            searchButton.addEventListener('click', function() {
+                const query = searchInput.value.trim();
+                if (query.length > 0) {
+                    performSearch(query);
+                }
+            });
+            
+            // Обработка нажатия Enter в поле поиска
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchButton.click();
+                }
+            });
+            
+            // Фокус на поле поиска при загрузке страницы для лучшего UX
+            setTimeout(() => {
+                if (window.location.hash === '#search') {
+                    searchInput.focus();
+                }
+            }, 500);
+            
+            // Анимация карточек при прокрутке
+            const cards = document.querySelectorAll('.animated-card');
+            
+            function checkScroll() {
+                cards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect();
+                    
+                    // Если карточка попадает в область видимости
+                    if (cardPosition.top < window.innerHeight * 0.9 && cardPosition.bottom > 0) {
+                        card.classList.add('card-visible');
+                    }
+                });
+            }
+            
+            // Первоначальная проверка при загрузке
+            checkScroll();
+            
+            // Проверка при прокрутке
+            window.addEventListener('scroll', checkScroll);
+            
+            // Функциональность чата с ИИ
+            const chatButton = document.getElementById('ai-chat-button');
+            const chatContainer = document.getElementById('ai-chat-container');
+            const chatClose = document.getElementById('ai-chat-close');
+            const chatMessages = document.getElementById('ai-chat-messages');
+            const chatInput = document.getElementById('ai-chat-input-field');
+            const chatSend = document.getElementById('ai-chat-send');
+            const messagesStatus = document.getElementById('ai-messages-status');
+            const scrollUpIndicator = document.getElementById('scroll-up');
+            const scrollDownIndicator = document.getElementById('scroll-down');
+            
+            // Функция отслеживания позиции прокрутки
+            function updateScrollIndicators() {
+                const messagesEl = chatMessages;
+                
+                // Показываем индикатор прокрутки вверх, если прокрутка не в начале
+                if (messagesEl.scrollTop > 50) {
+                    scrollUpIndicator.style.display = 'flex';
+                } else {
+                    scrollUpIndicator.style.display = 'none';
+                }
+                
+                // Показываем индикатор прокрутки вниз, если прокрутка не в конце
+                const isScrolledToBottom = messagesEl.scrollHeight - messagesEl.clientHeight <= messagesEl.scrollTop + 50;
+                
+                if (!isScrolledToBottom && messagesEl.scrollHeight > messagesEl.clientHeight) {
+                    scrollDownIndicator.style.display = 'flex';
+                } else {
+                    scrollDownIndicator.style.display = 'none';
+                }
+            }
+            
+            // Прокрутка к началу и концу чата
+            scrollUpIndicator.addEventListener('click', function() {
+                chatMessages.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            scrollDownIndicator.addEventListener('click', function() {
+                chatMessages.scrollTo({
+                    top: chatMessages.scrollHeight,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Отслеживаем прокрутку в контейнере сообщений
+            chatMessages.addEventListener('scroll', updateScrollIndicators);
+            
+            // Хранение истории диалога и контекста
+            let conversationHistory = [];
+            
+            // Хранение контекстуальной информации
+            let conversationContext = {
+                lastTopic: null,
+                mentionedTerms: [],
+                unsolvedQueries: [],
+                followUpQuestions: {},
+                userPreferences: {}
+            };
+            
+            // Параметры "личности" ИИ
+            const aiPersonality = {
+                // Насколько формальным будет общение (0-100)
+                formalityLevel: 60,
+                // Насколько дружелюбным будет ИИ (0-100)
+                friendliness: 80,
+                // Использование эмодзи (0-100)
+                emojiUsage: 40,
+                // Использование юмора (0-100)
+                humor: 30,
+                // Словарная вариативность (0-100)
+                vocabularyDiversity: 75,
+                // Скорость печати (символов в секунду)
+                typingSpeed: 15
+            };
+            
+            // База знаний о проекте переводчика сленга
+            const slangTranslatorKnowledge = {
+                // Основная информация о проекте
+                projectInfo: {
+                    name: "SLANGARIO",
+                    version: "2.5.1",
+                    releaseDate: "2025-03-15",
+                    description: "Инновационный сайт для перевода и объяснения сленговых выражений различных социальных групп и профессиональных областей.",
+                    purpose: "Помогает пользователям понимать современный сленг, жаргон и профессиональную терминологию, которая часто встречается в повседневном общении, социальных сетях и специализированных областях."
+                },
+                
+                // Ключевые функции приложения
+                features: {
+                    translation: {
+                        description: "Мгновенный перевод сленговых выражений на литературный язык с объяснением происхождения и контекста использования",
+                        examples: [
+                            { slang: "чилить", meaning: "расслабляться, отдыхать", origin: "от англ. 'chill'" },
+                            { slang: "рофлить", meaning: "сильно смеяться, шутить", origin: "от англ. 'ROFL' - Rolling On Floor Laughing" },
+                            { slang: "краш", meaning: "объект симпатии или влюбленности", origin: "от англ. 'crush'" },
+                            { slang: "зашквар", meaning: "что-то недостойное, неприемлемое, позорное", origin: "от тюремного жаргона" },
+                            { slang: "флексить", meaning: "хвастаться, показывать превосходство", origin: "от англ. 'flex' - демонстрировать силу" }
+                        ]
+                    },
+                    contextDetection: {
+                        description: "Определение контекста использования сленговых выражений для более точного перевода",
+                        technologies: ["NLP", "контекстный анализ", "семантические сети"]
+                    },
+                    audioTranslation: {
+                        description: "Распознавание сленга в аудио и подкастах с возможностью перевода в режиме реального времени",
+                        supportedFormats: ["MP3", "WAV", "OGG", "потоковое аудио"]
+                    },
+                    imageRecognition: {
+                        description: "Распознавание граффити, мемов и визуального сленга через камеру",
+                        languages: ["русский", "английский", "испанский", "корейский"]
+                    },
+                    socialMedia: {
+                        description: "Интеграция с социальными сетями для мгновенного перевода комментариев и постов",
+                        platforms: ["ВКонтакте", "Telegram", "Instagram", "TikTok", "Twitter"]
+                    }
+                },
+                
+                // Типы сленга в базе данных
+                slangTypes: {
+                    youth: {
+                        name: "Молодежный сленг",
+                        description: "Выражения и слова, популярные среди подростков и молодежи, часто приходящие из игр, соцсетей и массовой культуры",
+                        count: 25000,
+                        examples: [
+                            { term: "изи", meaning: "легко, просто", context: "Это задание изи, справимся за час" },
+                            { term: "кринж", meaning: "что-то неловкое, вызывающее стыд", context: "Вчерашнее выступление было полным кринжем" },
+                            { term: "токсик", meaning: "токсичный, негативный человек", context: "Не общайся с ним, он токсик" },
+                            { term: "вайб", meaning: "атмосфера, настроение", context: "У этого места отличный вайб" },
+                            { term: "го", meaning: "побуждение к действию", context: "Го в кино сегодня вечером?" }
+                        ]
+                    },
+                    internet: {
+                        name: "Интернет-сленг",
+                        description: "Термины, мемы и выражения, распространенные в онлайн-сообществах и форумах",
+                        count: 30000,
+                        examples: [
+                            { term: "имхо", meaning: "по моему мнению", context: "Имхо, это лучший фильм года" },
+                            { term: "агриться", meaning: "злиться, раздражаться", context: "Не агрись на меня из-за мелочей" },
+                            { term: "зашакалить", meaning: "испортить качество изображения", context: "Картинка совсем зашакалена" },
+                            { term: "хайп", meaning: "шумиха, ажиотаж", context: "Вокруг этого проекта создали много хайпа" },
+                            { term: "зачекинить", meaning: "отметиться в каком-то месте", context: "Не забудь зачекинить нас в кафе" }
+                        ]
+                    },
+                    professional: {
+                        name: "Профессиональный жаргон",
+                        description: "Термины, используемые в различных профессиональных областях: IT, медицина, юриспруденция и т.д.",
+                        count: 45000,
+                        examples: [
+                            { term: "дебажить", meaning: "искать и исправлять ошибки в коде", context: "Потратил весь день на дебажинг этого модуля" },
+                            { term: "реквест", meaning: "запрос, заявка", context: "Отправь реквест на добавление этой функции" },
+                            { term: "девопс", meaning: "специалист по непрерывной интеграции и доставке", context: "Нам нужен опытный девопс в команду" },
+                            { term: "скрам", meaning: "методология гибкой разработки", context: "Мы используем скрам для организации работы" },
+                            { term: "триаж", meaning: "сортировка пациентов по степени тяжести", context: "Медсестра проводит триаж в приемном покое" }
+                        ]
+                    },
+                    regional: {
+                        name: "Региональный сленг",
+                        description: "Диалектные выражения и локальные жаргонизмы из разных регионов",
+                        count: 20000,
+                        examples: [
+                            { term: "шаньга", meaning: "открытый пирожок (Урал)", context: "Бабушка испекла вкусные шаньги" },
+                            { term: "биток", meaning: "котлета (Краснодарский край)", context: "На обед были битки с картошкой" },
+                            { term: "кыса", meaning: "девушка (Иркутск)", context: "Вечером с кысой идем в кино" },
+                            { term: "мультифора", meaning: "пластиковый файл для бумаг (Сибирь)", context: "Положи документы в мультифору" },
+                            { term: "пятёрка", meaning: "маршрутка №5 (повсеместно)", context: "Поедем на пятёрке до центра" }
+                        ]
+                    },
+                    criminal: {
+                        name: "Блатной жаргон",
+                        description: "Жаргон криминальной среды и тюремной субкультуры",
+                        count: 15000,
+                        examples: [
+                            { term: "шконка", meaning: "кровать в тюремной камере", context: "Кто занял мою шконку?" },
+                            { term: "ксива", meaning: "документ, удостоверение", context: "Покажи свою ксиву" },
+                            { term: "малява", meaning: "записка, письмо", context: "Ему передали маляву" },
+                            { term: "хата", meaning: "квартира, помещение", context: "У него просторная хата" },
+                            { term: "баклан", meaning: "шумный, наглый человек", context: "Не будь бакланом" }
+                        ]
+                    }
+                },
+                
+                // Технические характеристики
+                technical: {
+                    database: {
+                        type: "NoSQL",
+                        entries: 150000,
+                        updateFrequency: "еженедельно",
+                        sources: ["социальные медиа", "литература", "полевые исследования", "пользовательские добавления"]
+                    },
+                    algorithms: {
+                        main: "NLP на базе трансформеров",
+                        contextDetection: "BERT-based модели с дообучением на разговорной речи",
+                        audioProcessing: "Нейросетевое распознавание речи с адаптацией к сленгу",
+                        performance: "95% точность для известных выражений, 78% для новых"
+                    },
+                    platforms: {
+                        mobile: ["iOS (14.0+)", "Android (8.0+)"],
+                        desktop: ["Windows", "macOS", "Linux"],
+                        web: "Progressive Web App (PWA)",
+                        offline: "Полная поддержка офлайн-режима с базовой базой данных"
+                    },
+                    api: {
+                        protocols: ["REST", "GraphQL"],
+                        endpoints: 35,
+                        limitations: "1000 запросов/день для бесплатного плана",
+                        documentation: "OpenAPI 3.0, полная документация с примерами"
+                    },
+                    security: {
+                        dataEncryption: "AES-256",
+                        privacyFeatures: ["анонимный режим", "автоматическое удаление истории"],
+                        compliance: ["GDPR", "CCPA", "ФЗ-152"]
+                    }
+                },
+                
+                // Тарифные планы и цены
+                pricing: {
+                    free: {
+                        name: "Бесплатный",
+                        features: ["Базовый словарь (50,000 выражений)", "5 переводов в день", "Реклама в приложении"],
+                        limitations: ["Нет доступа к аудио-переводу", "Базовая точность перевода"]
+                    },
+                    standard: {
+                        name: "Стандарт",
+                        price: 299,
+                        period: "месяц",
+                        features: ["Полный словарь", "Неограниченные переводы", "Без рекламы", "История переводов"],
+                        bestFor: "Активные пользователи социальных сетей"
+                    },
+                    premium: {
+                        name: "Премиум",
+                        price: 599,
+                        period: "месяц",
+                        features: ["Все функции Стандарта", "Аудио-перевод", "Распознавание изображений", "Приоритетная поддержка"],
+                        bestFor: "Журналисты, писатели, маркетологи"
+                    },
+                    business: {
+                        name: "Бизнес",
+                        price: 1999,
+                        period: "месяц",
+                        features: ["Все функции Премиума", "API доступ", "Командные функции", "Интеграция с корпоративными системами"],
+                        bestFor: "Компании, маркетинговые агентства, медиа"
+                    }
+                },
+                
+                // Информация о поддержке пользователей
+                support: {
+                    channels: [
+                        { type: "Email", contact: "support@slangario.ru", hours: "24/7, ответ в течение 24 часов" },
+                        { type: "Чат", location: "На сайте", hours: "Пн-Пт, 9:00-18:00 МСК" },
+                        { type: "Телефон", contact: "8-800-123-45-67", hours: "Пн-Пт, 10:00-17:00 МСК" }
+                    ],
+                    documentation: ["База знаний", "Видеоинструкции", "Обучающие материалы"],
+                    community: {
+                        forum: "forum.slangario.ru",
+                        socialMedia: ["ВКонтакте", "Telegram", "YouTube"],
+                        meetups: "Ежеквартальные онлайн-встречи сообщества"
+                    }
+                },
+                
+                // История и развитие проекта
+                history: {
+                    founded: "2023 год, группой лингвистов и разработчиков из МГТУ им. Баумана",
+                    milestones: [
+                        { date: "2023-05", event: "Запуск MVP с базовым молодежным сленгом" },
+                        { date: "2023-09", event: "Добавление профессионального жаргона" },
+                        { date: "2024-01", event: "Запуск полноценной веб-версии" },
+                        { date: "2024-06", event: "Интеграция с социальными сетями" },
+                        { date: "2024-11", event: "Запуск корпоративных решений" },
+                        { date: "2025-03", event: "Мультиязычная поддержка и международная экспансия" }
+                    ],
+                    users: {
+                        total: "2.5+ миллиона пользователей",
+                        active: "800,000+ активных пользователей в месяц",
+                        demographics: "65% в возрасте 16-34 лет, 20% 35-55 лет, 15% другие возрастные группы"
+                    },
+                    recognition: [
+                        "Премия 'Инновация года' в категории языковых технологий (2024)",
+                        "Топ-5 приложений в категории 'Образование' в App Store и Google Play"
+                    ]
+                },
+                
+                // Планы развития
+                roadmap: {
+                    nearTerm: [
+                        "Улучшение алгоритмов контекстуального анализа",
+                        "Добавление новых региональных диалектов",
+                        "Улучшенная интеграция с мессенджерами"
+                    ],
+                    midTerm: [
+                        "Поддержка азиатских языков",
+                        "Распознавание эмодзи и мемов",
+                        "AR-функциональность для распознавания граффити"
+                    ],
+                    longTerm: [
+                        "Исторический архив сленга с отслеживанием эволюции выражений",
+                        "Предиктивные алгоритмы для прогнозирования развития языка",
+                        "Сленговый переводчик в AR-очках"
+                    ]
+                }
+            };
+            
+            // Функция для проверки размера сообщения и добавления кнопки "Раскрыть"
+            function checkMessageSize(messageElement, content) {
+                // Если контент сообщения содержит много текста (более 300 символов)
+                if (content.length > 300) {
+                    const messageContent = messageElement.querySelector('.message-content');
+                    const expandButton = document.createElement('button');
+                    expandButton.className = 'expand-button';
+                    expandButton.textContent = 'Раскрыть';
+                    messageElement.appendChild(expandButton);
+                    
+                    // При нажатии на кнопку "Раскрыть" меняем высоту контейнера
+                    expandButton.addEventListener('click', function() {
+                        if (messageElement.classList.contains('expanded')) {
+                            messageElement.classList.remove('expanded');
+                            expandButton.textContent = 'Раскрыть';
+                            messageContent.style.maxHeight = '200px';
+                        } else {
+                            messageElement.classList.add('expanded');
+                            expandButton.textContent = 'Свернуть';
+                            messageContent.style.maxHeight = 'none';
+                        }
+                        // Обновляем индикаторы прокрутки после изменения размеров
+                        updateScrollIndicators();
+                    });
+                }
+            }
+            
+            // Открытие/закрытие чата
+            chatButton.addEventListener('click', function() {
+                chatContainer.classList.add('active');
+                
+                // Если это первое открытие чата, приветствуем пользователя
+                if (conversationHistory.length === 0) {
+                    setTimeout(() => {
+                        const greeting = getPersonalizedResponse('greeting', 'Здравствуйте! Я ассистент документации SLANGARIO. Чем могу помочь?');
+                        addMessage(greeting, 'bot', true);
+                        conversationHistory.push({ role: 'assistant', content: greeting });
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        updateScrollIndicators();
+                    }, 500);
+                }
+            });
+            
+            chatClose.addEventListener('click', function() {
+                chatContainer.classList.remove('active');
+            });
+            
+            // Функция добавления сообщения с анимацией печати
+            function addMessage(text, type, withTypingEffect = false) {
+                const messageEl = document.createElement('div');
+                messageEl.className = `ai-message ${type} ${text.length > 300 ? 'expandable-message' : ''}`;
+                
+                // Создаем контейнер для содержимого сообщения
+                const contentEl = document.createElement('div');
+                contentEl.className = 'message-content';
+                messageEl.appendChild(contentEl);
+                
+                // Если это сообщение бота и нужен эффект печати
+                if (type === 'bot' && withTypingEffect) {
+                    // Расчет длительности анимации печати в зависимости от длины текста
+                    const typingDuration = Math.min(Math.max(text.length / aiPersonality.typingSpeed, 1), 5); // От 1 до 5 секунд
+                    
+                    // Создаем контейнер для эффекта печати
+                    const typewriterEl = document.createElement('span');
+                    typewriterEl.className = 'typewriter typing';
+                    contentEl.appendChild(typewriterEl);
+                    
+                    // Добавляем сообщение в чат
+                    chatMessages.appendChild(messageEl);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Анимируем эффект печати с принудительной прокруткой
+                    let i = 0;
+                    const typingInterval = setInterval(() => {
+                        if (i <= text.length) {
+                            typewriterEl.textContent = text.substring(0, i);
+                            i++;
+                            // Убедимся, что при длинном тексте прокрутка следует за ним
+                            requestAnimationFrame(() => {
+                                chatMessages.scrollTop = chatMessages.scrollHeight;
+                            });
+                        } else {
+                            clearInterval(typingInterval);
+                            typewriterEl.classList.remove('typing');
+                            
+                            // Проверяем размер сообщения после завершения анимации печати
+                            checkMessageSize(messageEl, text);
+                            
+                            // Дополнительная прокрутка после завершения анимации
+                            setTimeout(() => {
+                                chatMessages.scrollTop = chatMessages.scrollHeight;
+                                updateScrollIndicators();
+                            }, 100);
+                        }
+                    }, typingDuration * 1000 / text.length);
+                } else {
+                    // Обычное добавление текста без эффекта
+                    contentEl.textContent = text;
+                    chatMessages.appendChild(messageEl);
+                    
+                    // Проверяем размер сообщения
+                    checkMessageSize(messageEl, text);
+                    
+                    // Прокручиваем чат вниз
+                    requestAnimationFrame(() => {
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        updateScrollIndicators();
+                    });
+                }
+            }
+            
+            // Отправка сообщения
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message.length === 0) return;
+                
+                // Добавляем сообщение пользователя в историю и интерфейс
+                addMessage(message, 'user');
+                conversationHistory.push({ role: 'user', content: message });
+                chatInput.value = '';
+                
+                // Обновляем индикаторы прокрутки
+                updateScrollIndicators();
+                
+                // Показываем статус "ИИ печатает..."
+                messagesStatus.classList.add('active');
+                
+                // Прокручиваем чат вниз
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Задержка перед ответом ИИ (симуляция обработки)
+                setTimeout(() => {
+                    // Получаем ответ ИИ на основе детальной базы знаний о проекте
+                    const aiResponse = generateSmartResponse(message);
+                    
+                    // Скрываем статус и показываем ответ с эффектом печати
+                    messagesStatus.classList.remove('active');
+                    addMessage(aiResponse, 'bot', true);
+                    conversationHistory.push({ role: 'assistant', content: aiResponse });
+                }, 1000);
+            }
+            
+            // Улучшенная функция генерации умного ответа на основе детальной базы знаний
+            function generateSmartResponse(message) {
+                // Приводим сообщение к нижнему регистру для облегчения поиска ключевых слов
+                const lowercaseMessage = message.toLowerCase();
+                
+                // Анализируем контекст запроса
+                let detectedTopics = [];
+                let detectedTerms = [];
+                let responseContent = '';
+                
+                // Обнаружение терминов сленга из базы знаний
+                for (const category in slangTranslatorKnowledge.slangTypes) {
+                    const categoryData = slangTranslatorKnowledge.slangTypes[category];
+                    
+                    // Проверяем, упоминается ли категория сленга в запросе
+                    if (lowercaseMessage.includes(categoryData.name.toLowerCase()) || 
+                        (category === 'youth' && lowercaseMessage.includes('молодеж')) || 
+                        (category === 'internet' && lowercaseMessage.includes('интернет')) || 
+                        (category === 'professional' && (lowercaseMessage.includes('профессион') || lowercaseMessage.includes('жаргон'))) ||
+                        (category === 'regional' && (lowercaseMessage.includes('регион') || lowercaseMessage.includes('диалект'))) ||
+                        (category === 'criminal' && (lowercaseMessage.includes('крими') || lowercaseMessage.includes('блат')))) {
+                    
+                        detectedTopics.push(category);
+                    }
+                    
+                    // Проверяем, есть ли конкретные термины сленга в запросе
+                    categoryData.examples.forEach(example => {
+                        if (lowercaseMessage.includes(example.term.toLowerCase())) {
+                            detectedTerms.push(example);
+                        }
+                    });
+                }
+                
+                // Обнаружение других тематик запроса
+                if (/привет|здравствуй|добрый день|хай|хелло|здравствуйте/i.test(lowercaseMessage)) {
+                    detectedTopics.push('greeting');
+                }
+                
+                if (/что такое|определение|что означает|сленг|жаргон|значение|определи|объясни слово/i.test(lowercaseMessage)) {
+                    detectedTopics.push('definition');
+                    
+                    // Извлекаем конкретный термин, если он указан в запросе
+                    const termMatch = lowercaseMessage.match(/что такое\s+(\w+)|что значит\s+(\w+)|значение\s+(\w+)|определение\s+(\w+)|объясни\s+(\w+)|перевести\s+(\w+)|смысл\s+(\w+)/i);
+                    if (termMatch) {
+                        const term = (termMatch[1] || termMatch[2] || termMatch[3] || termMatch[4] || termMatch[5] || termMatch[6] || termMatch[7] || '').trim();
+                        if (term) {
+                            let termExplained = false;
+                            
+                            // Ищем термин во всех категориях сленга
+                            for (const category in slangTranslatorKnowledge.slangTypes) {
+                                const examples = slangTranslatorKnowledge.slangTypes[category].examples;
+                                for (const example of examples) {
+                                    if (example.term.toLowerCase() === term.toLowerCase()) {
+                                        responseContent = `Термин "${example.term}" означает: ${example.meaning}. `;
+                                        if (example.context) {
+                                            responseContent += `Пример использования: "${example.context}". `;
+                                        }
+                                        if (example.origin) {
+                                            responseContent += `Происхождение: ${example.origin}.`;
+                                        }
+                                        
+                                        termExplained = true;
+                                        break;
+                                    }
+                                }
+                                if (termExplained) break;
+                            }
+                            
+                            // Если термин не найден в нашей базе, предлагаем общий ответ
+                            if (!termExplained) {
+                                responseContent = `Термин "${term}" не найден в нашей базе данных сленга. SLANGARIO постоянно обновляется, и мы добавим этот термин в ближайшее время. Вы можете помочь нам, предложив его значение через форму обратной связи на сайте.`;
+                            }
+                            
+                            return responseContent;
+                        }
+                    }
+                }
+                
+                if (/функц|возможност|умеет|может|делает|перевод/i.test(lowercaseMessage)) {
+                    detectedTopics.push('features');
+                }
+                
+                if (/как пользоваться|как использовать|руководство|мануал|работа|пользоваться|использование|как работает/i.test(lowercaseMessage)) {
+                    detectedTopics.push('usage');
+                }
+                
+                if (/установить|скачать|загрузить|инсталляция|установка|магазин приложений|app store|google play/i.test(lowercaseMessage)) {
+                    detectedTopics.push('installation');
+                }
+                
+                if (/api|интеграция|разработчик|подключить|интеграции|разработка|endpoint|запрос/i.test(lowercaseMessage)) {
+                    detectedTopics.push('api');
+                }
+                
+                if (/цена|тариф|стоимость|подписка|оплата|платный|бесплатный|купить|payment|free|trial/i.test(lowercaseMessage)) {
+                    detectedTopics.push('pricing');
+                }
+                
+                if (/поддержка|помощь|проблема|ошибка|баг|связаться|контакт|support|email|телефон/i.test(lowercaseMessage)) {
+                    detectedTopics.push('support');
+                }
+                
+                if (/истори|истор|создан|основан|начал|компания|когда появил/i.test(lowercaseMessage)) {
+                    detectedTopics.push('history');
+                }
+                
+                if (/план|будущ|разви|roadmap|апдейт|обновлени/i.test(lowercaseMessage)) {
+                    detectedTopics.push('roadmap');
+                }
+                
+                if (/платформ|андроид|android|ios|айфон|виндовс|windows|mac|браузер/i.test(lowercaseMessage)) {
+                    detectedTopics.push('platforms');
+                }
+                
+                if (/безопас|privacy|данные|security|конфиден/i.test(lowercaseMessage)) {
+                    detectedTopics.push('security');
+                }
+                
+                if (/алгоритм|как работает|технолог|нейросет|точност|AI|ИИ|искусственный|ML/i.test(lowercaseMessage)) {
+                    detectedTopics.push('algorithms');
+                }
+                
+                // Если не определена ни одна тема, считаем это общим вопросом
+                if (detectedTopics.length === 0 && detectedTerms.length === 0) {
+                    detectedTopics.push('general');
+                }
+                
+                // Формируем ответ на основе определенных тем
+                const primaryTopic = detectedTopics[0];
+                
+                // Если найдены конкретные термины, объясняем их в первую очередь
+                if (detectedTerms.length > 0) {
+                    const term = detectedTerms[0];
+                    responseContent = `Термин "${term.term}" означает: ${term.meaning}. `;
+                    if (term.context) {
+                        responseContent += `Пример использования: "${term.context}". `;
+                    }
+                    if (term.origin) {
+                        responseContent += `Происхождение: ${term.origin}. `;
+                    }
+                    responseContent += "\n\nМожно ли помочь вам еще с чем-нибудь о сленге?";
+                    
+                    return responseContent;
+                }
+                
+                // Формируем ответ на основе темы запроса
+                switch(primaryTopic) {
+                    case 'greeting':
+                        responseContent = "Привет! Я ИИ-ассистент проекта SLANGARIO. Я могу помочь вам с информацией о различных видах сленга, функциях нашего сайта, тарифах, и даже перевести некоторые сленговые выражения. Что вас интересует?";
+                        break;
+                        
+                    case 'definition':
+                        responseContent = "Сленг - это нестандартные слова и выражения, характерные для определенных социальных групп или профессий. Наш переводчик специализируется на нескольких типах сленга: молодежном, интернет-сленге, профессиональном жаргоне, региональных диалектах и блатном жаргоне. Какой конкретный термин вас интересует?";
+                        break;
+                        
+                    case 'features':
+                        responseContent = `Наш SLANGARIO предлагает следующие ключевые возможности:\n\n`;
+                        responseContent += `1. Перевод сленговых выражений с объяснением происхождения и контекста.\n`;
+                        responseContent += `2. Определение контекста использования для более точного перевода.\n`;
+                        responseContent += `3. Аудио-перевод для распознавания сленга в речи и подкастах.\n`;
+                        responseContent += `4. Распознавание визуального сленга (граффити, мемы) через камеру.\n`;
+                        responseContent += `5. Интеграция с социальными сетями для мгновенного перевода комментариев.\n\n`;
+                        responseContent += `Наша база данных содержит более 150,000 сленговых выражений из разных категорий и постоянно обновляется.`;
+                        break;
+                        
+                    case 'usage':
+                        responseContent = "Использовать SLANGARIO очень просто:\n\n";
+                        responseContent += "1. Введите сленговое выражение в поисковую строку или используйте кнопку микрофона для голосового ввода.\n";
+                        responseContent += "2. Сайт мгновенно отобразит перевод на литературный язык, пример использования и происхождение выражения.\n";
+                        responseContent += "3. Для перевода текста из социальных сетей используйте функцию 'Поделиться' в вашей соцсети и выберите наш сервис.\n";
+                        responseContent += "4. Для распознавания визуального сленга, нажмите на иконку камеры и наведите на текст или изображение.\n\n";
+                        responseContent += "Сайт работает в режиме офлайн для базовых функций после добавления на главный экран как PWA.";
+                        break;
+                        
+                    case 'installation':
+                        responseContent = "Вы можете начать пользоваться SLANGARIO прямо сейчас:\n\n";
+                        responseContent += "• Просто откройте slangario.ru в любом современном браузере\n";
+                        responseContent += "• Сайт адаптирован для всех устройств: смартфонов, планшетов и компьютеров\n";
+                        responseContent += "• Для удобного доступа вы можете добавить сайт на главный экран вашего устройства\n";
+                        responseContent += "• Большинство функций доступно без регистрации, но для сохранения истории переводов рекомендуется создать аккаунт";
+                        break;
+                        
+                    case 'api':
+                        const apiInfo = slangTranslatorKnowledge.technical.api;
+                        responseContent = `Наш API предоставляет доступ к функциям SLANGARIO для интеграции в ваши приложения:\n\n`;
+                        responseContent += `• Поддерживаемые протоколы: ${apiInfo.protocols.join(', ')}\n`;
+                        responseContent += `• Количество эндпоинтов: ${apiInfo.endpoints}\n`;
+                        responseContent += `• Ограничения запросов: ${apiInfo.limitations}\n`;
+                        responseContent += `• Документация: ${apiInfo.documentation}\n\n`;
+                        responseContent += `API доступен в тарифных планах "Бизнес" и выше. Полная документация с примерами кода доступна по адресу slangario.ru/api-docs.`;
+                        break;
+                        
+                    case 'pricing':
+                        responseContent = "SLANGARIO доступен в следующих тарифных планах:\n\n";
+                        
+                        // Добавляем информацию о бесплатном плане
+                        const freePlan = slangTranslatorKnowledge.pricing.free;
+                        responseContent += `🆓 ${freePlan.name}: ${freePlan.features.join(", ")}. Ограничения: ${freePlan.limitations.join(", ")}.\n\n`;
+                        
+                        // Добавляем информацию о стандартном плане
+                        const standardPlan = slangTranslatorKnowledge.pricing.standard;
+                        responseContent += `💎 ${standardPlan.name}: ${standardPlan.price} руб/${standardPlan.period}\n`;
+                        responseContent += `Включает: ${standardPlan.features.join(", ")}.\n`;
+                        responseContent += `Идеально подходит для: ${standardPlan.bestFor}.\n\n`;
+                        
+                        // Добавляем информацию о премиум плане
+                        const premiumPlan = slangTranslatorKnowledge.pricing.premium;
+                        responseContent += `✨ ${premiumPlan.name}: ${premiumPlan.price} руб/${premiumPlan.period}\n`;
+                        responseContent += `Включает: ${premiumPlan.features.join(", ")}.\n`;
+                        responseContent += `Идеально подходит для: ${premiumPlan.bestFor}.\n\n`;
+                        
+                        // Добавляем информацию о бизнес плане
+                        const businessPlan = slangTranslatorKnowledge.pricing.business;
+                        responseContent += `🏢 ${businessPlan.name}: ${businessPlan.price} руб/${businessPlan.period}\n`;
+                        responseContent += `Включает: ${businessPlan.features.join(", ")}.\n`;
+                        responseContent += `Идеально подходит для: ${businessPlan.bestFor}.`;
+                        break;
+                        
+                    case 'support':
+                        responseContent = "Мы предлагаем несколько каналов поддержки для пользователей SLANGARIO:\n\n";
+                        
+                        // Добавляем информацию о каналах поддержки
+                        slangTranslatorKnowledge.support.channels.forEach(channel => {
+                            responseContent += `📞 ${channel.type}: ${channel.contact || ''} (${channel.hours})\n`;
+                        });
+                        
+                        responseContent += `\nТакже доступны: ${slangTranslatorKnowledge.support.documentation.join(", ")}\n\n`;
+                        responseContent += `Сообщество пользователей:\n`;
+                        responseContent += `• Форум: ${slangTranslatorKnowledge.support.community.forum}\n`;
+                        responseContent += `• Социальные сети: ${slangTranslatorKnowledge.support.community.socialMedia.join(", ")}\n`;
+                        responseContent += `• Встречи: ${slangTranslatorKnowledge.support.community.meetups}`;
+                        break;
+                        
+                    case 'youth':
+                        const youthInfo = slangTranslatorKnowledge.slangTypes.youth;
+                        responseContent = `${youthInfo.name} - это ${youthInfo.description}. В нашей базе содержится более ${youthInfo.count} молодежных сленговых выражений.\n\n`;
+                        responseContent += `Примеры молодежного сленга:\n`;
+                        youthInfo.examples.forEach(example => {
+                            responseContent += `• "${example.term}" - ${example.meaning} (Пример: "${example.context}")\n`;
+                        });
+                        break;
+                        
+                    case 'internet':
+                        const internetInfo = slangTranslatorKnowledge.slangTypes.internet;
+                        responseContent = `${internetInfo.name} - это ${internetInfo.description}. В нашей базе содержится более ${internetInfo.count} интернет-сленговых выражений.\n\n`;
+                        responseContent += `Примеры интернет-сленга:\n`;
+                        internetInfo.examples.forEach(example => {
+                            responseContent += `• "${example.term}" - ${example.meaning} (Пример: "${example.context}")\n`;
+                        });
+                        break;
+                        
+                    case 'professional':
+                        const profInfo = slangTranslatorKnowledge.slangTypes.professional;
+                        responseContent = `${profInfo.name} - это ${profInfo.description}. В нашей базе содержится более ${profInfo.count} профессиональных жаргонизмов.\n\n`;
+                        responseContent += `Примеры профессионального жаргона:\n`;
+                        profInfo.examples.forEach(example => {
+                            responseContent += `• "${example.term}" - ${example.meaning} (Пример: "${example.context}")\n`;
+                        });
+                        break;
+                        
+                    case 'regional':
+                        const regionalInfo = slangTranslatorKnowledge.slangTypes.regional;
+                        responseContent = `${regionalInfo.name} - это ${regionalInfo.description}. В нашей базе содержится более ${regionalInfo.count} региональных сленговых выражений.\n\n`;
+                        responseContent += `Примеры регионального сленга:\n`;
+                        regionalInfo.examples.forEach(example => {
+                            responseContent += `• "${example.term}" - ${example.meaning} (Пример: "${example.context}")\n`;
+                        });
+                        break;
+                        
+                    case 'criminal':
+                        const criminalInfo = slangTranslatorKnowledge.slangTypes.criminal;
+                        responseContent = `${criminalInfo.name} - это ${criminalInfo.description}. В нашей базе содержится более ${criminalInfo.count} блатных жаргонизмов.\n\n`;
+                        responseContent += `Примеры блатного жаргона:\n`;
+                        criminalInfo.examples.forEach(example => {
+                            responseContent += `• "${example.term}" - ${example.meaning} (Пример: "${example.context}")\n`;
+                        });
+                        break;
+                        
+                    case 'history':
+                        const historyInfo = slangTranslatorKnowledge.history;
+                        responseContent = `История проекта "SLANGARIO":\n\n`;
+                        responseContent += `Основан в ${historyInfo.founded}.\n\n`;
+                        responseContent += `Ключевые вехи развития:\n`;
+                        historyInfo.milestones.forEach(milestone => {
+                            responseContent += `• ${milestone.date}: ${milestone.event}\n`;
+                        });
+                        responseContent += `\nТекущая аудитория: ${historyInfo.users.total}, из которых ${historyInfo.users.active}.\n\n`;
+                        responseContent += `Признание: ${historyInfo.recognition.join(", ")}`;
+                        break;
+                        
+                    case 'roadmap':
+                        const roadmapInfo = slangTranslatorKnowledge.roadmap;
+                        responseContent = `Планы развития SLANGARIO:\n\n`;
+                        responseContent += `Ближайшие планы:\n`;
+                        roadmapInfo.nearTerm.forEach(item => {
+                            responseContent += `• ${item}\n`;
+                        });
+                        responseContent += `\nСреднесрочные планы:\n`;
+                        roadmapInfo.midTerm.forEach(item => {
+                            responseContent += `• ${item}\n`;
+                        });
+                        responseContent += `\nДолгосрочные планы:\n`;
+                        roadmapInfo.longTerm.forEach(item => {
+                            responseContent += `• ${item}\n`;
+                        });
+                        break;
+                        
+                    case 'platforms':
+                        const platformInfo = slangTranslatorKnowledge.technical.platforms;
+                        responseContent = `SLANGARIO доступен в любом браузере на различных устройствах:\n\n`;
+                        responseContent += `📱 Мобильные: iOS, Android (адаптивный дизайн)\n`;
+                        responseContent += `💻 Десктоп: Windows, macOS, Linux (все современные браузеры)\n`;
+                        responseContent += `🌐 Сайт: полностью адаптивный интерфейс\n\n`;
+                        responseContent += `Работа офлайн: добавьте сайт на главный экран как PWA для доступа к базовым функциям без интернета`;
+                        break;
+                        
+                    case 'security':
+                        const securityInfo = slangTranslatorKnowledge.technical.security;
+                        responseContent = `Безопасность в "Переводчике сленга":\n\n`;
+                        responseContent += `🔒 Шифрование данных: ${securityInfo.dataEncryption}\n`;
+                        responseContent += `🔐 Функции приватности: ${securityInfo.privacyFeatures.join(", ")}\n`;
+                        responseContent += `📜 Соответствие нормативам: ${securityInfo.compliance.join(", ")}\n\n`;
+                        responseContent += `Мы ценим конфиденциальность наших пользователей и не передаем личные данные третьим лицам.`;
+                        break;
+                        
+                    case 'algorithms':
+                        const algoInfo = slangTranslatorKnowledge.technical.algorithms;
+                        responseContent = `Технологии, используемые в "Переводчике сленга":\n\n`;
+                        responseContent += `🧠 Основной алгоритм: ${algoInfo.main}\n`;
+                        responseContent += `🔍 Алгоритм определения контекста: ${algoInfo.contextDetection}\n`;
+                        responseContent += `🎤 Обработка аудио: ${algoInfo.audioProcessing}\n`;
+                        responseContent += `📊 Производительность: ${algoInfo.performance}\n\n`;
+                        responseContent += `Наши алгоритмы постоянно обучаются и совершенствуются на основе новых данных и обратной связи от пользователей.`;
+                        break;
+                        
+                    case 'general':
+                    default:
+                        responseContent = `"SLANGARIO" - это инновационный сайт, созданный в 2023 году, который помогает понимать сленговые выражения из различных сфер: молодежной речи, интернет-общения, профессиональных областей, региональных диалектов и других источников.\n\n`;
+                        responseContent += `Наша база данных содержит более 150,000 сленговых выражений, которые постоянно обновляются. Сайт доступен на любых устройствах через веб-браузер.\n\n`;
+                        responseContent += `Я могу рассказать вам подробнее о функциях сайта, различных видах сленга, тарифных планах или даже объяснить значение конкретных сленговых выражений. Что именно вас интересует?`;
+                        break;
+                }
+                
+                // Если определено несколько тем, добавляем информацию о смежных темах
+                if (detectedTopics.length > 1) {
+                    responseContent += "\n\nЯ заметил, что вас также может интересовать: ";
+                    const secondaryTopics = detectedTopics.slice(1, 3); // Берем не более 2 дополнительных тем
+                    const topicNames = {
+                        'greeting': 'приветствие',
+                        'definition': 'определения сленга',
+                        'features': 'функции приложения',
+                        'usage': 'использование приложения',
+                        'installation': 'установка',
+                        'api': 'API возможности',
+                        'pricing': 'тарифы',
+                        'support': 'поддержка пользователей',
+                        'youth': 'молодежный сленг',
+                        'internet': 'интернет-сленг',
+                        'professional': 'профессиональный жаргон',
+                        'regional': 'региональный сленг',
+                        'criminal': 'блатной жаргон',
+                        'history': 'история проекта',
+                        'roadmap': 'планы развития',
+                        'platforms': 'поддерживаемые платформы',
+                        'security': 'вопросы безопасности',
+                        'algorithms': 'технологии и алгоритмы'
+                    };
+                    responseContent += secondaryTopics.map(topic => topicNames[topic] || topic).join(', ') + '. Могу рассказать подробнее об этом.';
+                }
+                
+                // Обогащаем ответ персонализацией
+                return getPersonalizedResponse(primaryTopic, responseContent);
+            }
+            
+            // Функция для улучшенного анализа контекста на основе истории диалога
+            function analyzeContext(message, history, currentContext) {
+                // Создаем новый объект контекста на основе текущего
+                const newContext = {...currentContext};
+                
+                // Приводим сообщение к нижнему регистру для облегчения анализа
+                const lowercaseMessage = message.toLowerCase();
+                
+                // Обнаруживаем упоминания сленговых терминов
+                for (const category in projectKnowledge.slangTypes) {
+                    const examples = projectKnowledge.slangTypes[category].examples || [];
+                    for (const example of examples) {
+                        if (lowercaseMessage.includes(example.term.toLowerCase())) {
+                            if (!newContext.mentionedTerms.includes(example.term)) {
+                                newContext.mentionedTerms.push(example.term);
+                            }
+                        }
+                    }
+                }
+                
+                // Определяем тему сообщения
+                const topics = [];
+                
+                if (/привет|здравствуй|добрый день|хай|хелло|здравствуйте/i.test(lowercaseMessage)) {
+                    topics.push('greeting');
+                }
+                
+                if (/что такое|определение|что означает|сленг|жаргон|значение|определи|объясни слово/i.test(lowercaseMessage)) {
+                    topics.push('definition');
+                    
+                    // Пытаемся извлечь конкретный термин
+                    const matches = lowercaseMessage.match(/что такое\s+(\w+)|что значит\s+(\w+)|значение\s+(\w+)|определение\s+(\w+)|объясни слово\s+(\w+)|перевести слово\s+(\w+)/i);
+                    if (matches) {
+                        const term = (matches[1] || matches[2] || matches[3] || matches[4] || matches[5] || matches[6] || '').trim();
+                        if (term && !newContext.mentionedTerms.includes(term)) {
+                            newContext.mentionedTerms.push(term);
+                        }
+                    }
+                }
+                
+                // Более точное определение тем сообщения с использованием регулярных выражений
+                if (/как пользоваться|как использовать|функция|возможности|работа|пользоваться|использование|как работает/i.test(lowercaseMessage)) {
+                    topics.push('usage');
+                }
+                
+                if (/установить|скачать|загрузить|инсталляция|установка|магазин приложений|app store|google play/i.test(lowercaseMessage)) {
+                    topics.push('installation');
+                }
+                
+                if (/api|интеграция|разработчик|подключить|интеграции|разработка|endpoint|запрос/i.test(lowercaseMessage)) {
+                    topics.push('api');
+                }
+                
+                if (/цена|тариф|стоимость|подписка|оплата|платный|бесплатный|купить|payment|free|trial/i.test(lowercaseMessage)) {
+                    topics.push('pricing');
+                }
+                
+                if (/поддержка|помощь|проблема|ошибка|баг|связаться|контакт|support|email|телефон/i.test(lowercaseMessage)) {
+                    topics.push('support');
+                }
+                
+                // Проверка на наличие контекстуальных вопросов
+                if (/расскажи подробнее|больше информации|а что насчет|а как насчет|что еще|подробности|скажи больше/i.test(lowercaseMessage)) {
+                    // Если есть последняя тема, расширяем её
+                    if (newContext.lastTopic) {
+                        topics.push(newContext.lastTopic);
+                    }
+                }
+                
+                // Сохраняем последнюю тему, если определили хотя бы одну
+                if (topics.length > 0) {
+                    newContext.lastTopic = topics[0];
+                }
+                
+                // Анализируем предыдущие сообщения для понимания контекста
+                if (history.length >= 2) {
+                    const lastUserMessage = history[history.length - 1].content;
+                    const lastAiMessage = history[history.length - 2].content;
+                    
+                    // Если в последнем сообщении ИИ был вопрос, а пользователь дал короткий ответ
+                    if (lastAiMessage.endsWith('?') && lowercaseMessage.length < 20) {
+                        // Проверяем, был ли это вопрос о конкретной теме
+                        if (lastAiMessage.includes('сленг')) topics.push('definition');
+                        if (lastAiMessage.includes('тариф') || lastAiMessage.includes('подписк')) topics.push('pricing');
+                        if (lastAiMessage.includes('функци') || lastAiMessage.includes('возможност')) topics.push('features');
+                    }
+                }
+                
+                // Определяем предпочтения пользователя
+                if (/мобильн|телефон|android|ios|айфон|iphone/i.test(lowercaseMessage)) {
+                    newContext.userPreferences.platform = 'mobile';
+                } else if (/компьютер|ноутбук|десктоп|пк|windows|mac/i.test(lowercaseMessage)) {
+                    newContext.userPreferences.platform = 'desktop';
+                }
+                
+                if (/русск|русский/i.test(lowercaseMessage)) {
+                    newContext.userPreferences.language = 'russian';
+                } else if (/англ|english|английск/i.test(lowercaseMessage)) {
+                    newContext.userPreferences.language = 'english';
+                }
+                
+                newContext.detectedTopics = topics.length > 0 ? topics : ['general'];
+                
+                return newContext;
+            }
+            
+            // Функция для улучшенного ответа ИИ с учетом контекста
+            function getAIResponse(message) {
+                // Обновляем контекст диалога
+                const updatedContext = analyzeContext(message, conversationHistory, conversationContext);
+                
+                // Получаем детектированные темы
+                const detectedTopics = updatedContext.detectedTopics;
+                
+                // Генерируем базовый ответ на основе функции getAIResponse
+                const baseResponse = responseContext.generateResponse(detectedTopics, message, updatedContext);
+                
+                // Персонализируем ответ на основе контекста
+                const finalResponse = getPersonalizedResponse(
+                    detectedTopics[0] || 'general',
+                    baseResponse
+                );
+                
+                // Возвращаем ответ и обновленный контекст
+                return finalResponse;
+            }
+            
+            // Функция для персонализации ответов ИИ
+            function getPersonalizedResponse(type, baseResponse) {
+                // Если нет базового ответа, возвращаем пустую строку
+                if (!baseResponse) return '';
+                
+                // Добавляем эмодзи в зависимости от настроек "личности"
+                let finalResponse = baseResponse;
+                if (Math.random() * 100 < aiPersonality.emojiUsage) {
+                    const emojis = {
+                        greeting: ['👋', '😊', '👨‍💻', '🤖'],
+                        positive: ['👍', '✅', '🎯', '💡', '🚀'],
+                        negative: ['🤔', '❓', '📝'],
+                        technical: ['💻', '⚙️', '🔧', '📱'],
+                        slang: ['🗣️', '📚', '🔍', '✨'],
+                        pricing: ['💰', '💎', '🏷️', '💸'],
+                        support: ['🆘', '🛟', '📞', '✉️']
+                    };
+                    
+                    // Выбираем категорию эмодзи в зависимости от типа ответа
+                    let emojiCategory;
+                    if (type === 'greeting') {
+                        emojiCategory = emojis.greeting;
+                    } else if (baseResponse.includes('тариф') || baseResponse.includes('цен') || baseResponse.includes('стоимость')) {
+                        emojiCategory = emojis.pricing;
+                    } else if (baseResponse.includes('сленг') || baseResponse.includes('жаргон') || baseResponse.includes('словарь')) {
+                        emojiCategory = emojis.slang;
+                    } else if (baseResponse.includes('поддержк') || baseResponse.includes('помощь') || baseResponse.includes('проблем')) {
+                        emojiCategory = emojis.support;
+                    } else if (baseResponse.includes('апи') || baseResponse.includes('api') || baseResponse.includes('устан')) {
+                        emojiCategory = emojis.technical;
+                    } else if (baseResponse.includes('не') || baseResponse.includes('извинит') || baseResponse.includes('уточн')) {
+                        emojiCategory = emojis.negative;
+                    } else {
+                        emojiCategory = emojis.positive;
+                    }
+                    
+                    // Добавляем случайное эмодзи из выбранной категории
+                    const randomEmoji = emojiCategory[Math.floor(Math.random() * emojiCategory.length)];
+                    
+                    // С вероятностью 70% ставим эмодзи в начало, иначе в конец
+                    if (Math.random() < 0.7) {
+                        finalResponse = `${randomEmoji} ${finalResponse}`;
+                    } else {
+                        finalResponse = `${finalResponse} ${randomEmoji}`;
+                    }
+                }
+                
+                // Добавляем вариативность в зависимости от уровня формальности и дружелюбия
+                if (aiPersonality.formalityLevel < 40) {
+                    // Для неформального общения
+                    finalResponse = finalResponse
+                        .replace('Здравствуйте', 'Привет')
+                        .replace('Могу я вам помочь', 'Чем помочь')
+                        .replace('Пожалуйста', 'Плиз')
+                        .replace('Извините', 'Извини')
+                        .replace('Благодарим вас', 'Спасибо')
+                        .replace('Вам необходимо', 'Тебе нужно')
+                        .replace('Вы можете', 'Ты можешь');
+                } else if (aiPersonality.formalityLevel > 70) {
+                    // Для формального общения
+                    finalResponse = finalResponse
+                        .replace('Привет', 'Здравствуйте')
+                        .replace('Чем помочь', 'Могу я вам помочь')
+                        .replace('Спасибо', 'Благодарим вас')
+                        .replace('Нужно', 'Необходимо')
+                        .replace('Можешь', 'Вы можете')
+                        .replace('Напиши', 'Напишите');
+                }
+                
+                // Добавляем вариативность в зависимости от дружелюбия
+                if (aiPersonality.friendliness > 70 && aiPersonality.formalityLevel < 70) {
+                    // Для более дружелюбного общения
+                    const friendlyPhrases = [
+                        ', с удовольствием отвечу!',
+                        ', буду рад помочь!',
+                        ', отличный вопрос!',
+                        ', хороший вопрос!',
+                        ', это интересная тема!'
+                    ];
+                    
+                    // С вероятностью 30% добавляем дружелюбную фразу
+                    if (Math.random() < 0.3 && !finalResponse.includes('!')) {
+                        const randomPhrase = friendlyPhrases[Math.floor(Math.random() * friendlyPhrases.length)];
+                        
+                        // Если в ответе есть точка в конце, заменяем её на фразу
+                        if (finalResponse.endsWith('.')) {
+                            finalResponse = finalResponse.slice(0, -1) + randomPhrase;
+                        } else {
+                            finalResponse += randomPhrase;
+                        }
+                    }
+                }
+                
+                // Если включен юмор, добавляем немного юмора в некоторые ответы
+                if (aiPersonality.humor > 30 && Math.random() < 0.2) {
+                    const humorousAddons = {
+                        slang: [
+                            ' Иногда мне кажется, что каждую неделю появляется новый сленг, и мне нужно срочно обновлять свою базу данных! 😄',
+                            ' А знаете, мой создатель иногда не понимает современный сленг без помощи нашего приложения!',
+                            ' Честно говоря, некоторые сленговые выражения заставляют даже меня, ИИ, задуматься над их происхождением!'
+                        ],
+                        pricing: [
+                            ' И нет, мы не принимаем оплату в мемах, хотя идея интересная!',
+                            ' Как говорится: "Премиум доступ стоит денег, но нервы дороже!"',
+                            ' За эту цену вы получите столько возможностей, что ваши друзья будут завидовать вашему словарному запасу!'
+                        ],
+                        api: [
+                            ' Наш API настолько дружелюбен, что, кажется, сам предлагает программистам чашечку кофе!',
+                            ' Интеграция такая простая, что даже ваш кот мог бы ее настроить... ну, если бы у него были пальцы и знания JavaScript!'
+                        ]
+                    };
+                    
+                    // Определяем категорию для юмора
+                    let humorCategory = null;
+                    if (baseResponse.includes('сленг') || baseResponse.includes('жаргон')) {
+                        humorCategory = humorousAddons.slang;
+                    } else if (baseResponse.includes('цен') || baseResponse.includes('тариф') || baseResponse.includes('оплат')) {
+                        humorCategory = humorousAddons.pricing;
+                    } else if (baseResponse.includes('api') || baseResponse.includes('интегр')) {
+                        humorCategory = humorousAddons.api;
+                    }
+                    
+                    // Если категория определена, добавляем юмор
+                    if (humorCategory) {
+                        const randomHumor = humorCategory[Math.floor(Math.random() * humorCategory.length)];
+                        
+                        // Добавляем юмор в конец ответа
+                        finalResponse += randomHumor;
+                    }
+                }
+                
+                // Возвращаем финальный ответ
+                return finalResponse;
+            }
+            
+            // Обработчики для отправки сообщения
+            chatSend.addEventListener('click', sendMessage);
+
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // Исправление для автоматической прокрутки чата при новых сообщениях
+            function setupChatScrolling() {
+                const chatMessages = document.querySelector('.ai-chat-messages');
+                if (!chatMessages) return;
+                
+                // Флаг, показывающий, что пользователь в данный момент читает сообщения
+                let userIsReading = false;
+                let userScrollTimeout;
+                
+                // Функция для прокрутки чата вниз
+                function scrollToBottom() {
+                    // Прокручиваем вниз только если пользователь не читает предыдущие сообщения
+                    if (!userIsReading) {
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        updateScrollIndicators();
+                    }
+                }
+                
+                // Отслеживаем скроллинг пользователя
+                chatMessages.addEventListener('scroll', function() {
+                    // Если пользователь прокрутил вверх (не в самом низу чата)
+                    const isAtBottom = chatMessages.scrollHeight - chatMessages.clientHeight <= chatMessages.scrollTop + 50;
+                    
+                    if (!isAtBottom) {
+                        // Пользователь читает предыдущие сообщения
+                        userIsReading = true;
+                        
+                        // Обновляем индикаторы прокрутки
+                        updateScrollIndicators();
+                        
+                        // Очищаем предыдущий таймер
+                        clearTimeout(userScrollTimeout);
+                        
+                        // Устанавливаем таймер: через 5 секунд после последней прокрутки 
+                        // снова включаем автопрокрутку для новых сообщений
+                        userScrollTimeout = setTimeout(function() {
+                            userIsReading = false;
+                        }, 5000);
+                    } else {
+                        // Пользователь прокрутил до конца
+                        userIsReading = false;
+                    }
+                });
+                
+                // Наблюдатель за изменениями в контейнере сообщений с учетом пользовательского взаимодействия
+                const observer = new MutationObserver(function(mutations) {
+                    // Проверяем, что произошло добавление нового узла (сообщения)
+                    const hasNewMessages = mutations.some(mutation => 
+                        mutation.type === 'childList' && mutation.addedNodes.length > 0);
+                    
+                    if (hasNewMessages) {
+                        // При добавлении нового сообщения принимаем решение о прокрутке
+                        scrollToBottom();
+                    }
+                });
+                
+                // Настройка наблюдателя: отслеживаем добавление/удаление узлов
+                observer.observe(chatMessages, {
+                    childList: true,
+                    subtree: true,
+                    characterData: true
+                });
+                
+                // Начальная прокрутка
+                scrollToBottom();
+            }
+
+            // Добавляем возможность пользователю остановить автоматическую прокрутку
+            // при наведении на окно сообщений
+            document.addEventListener('DOMContentLoaded', function() {
+                const chatMessages = document.getElementById('ai-chat-messages');
+                if (chatMessages) {
+                    // Когда пользователь наводит мышь на сообщения, добавляем класс для отключения
+                    // автоматической прокрутки в CSS
+                    chatMessages.addEventListener('mouseenter', function() {
+                        chatMessages.classList.add('user-viewing');
+                    });
+                    
+                    // Когда пользователь уводит мышь, ждем 2 секунды и возвращаем 
+                    // автоматическую прокрутку
+                    chatMessages.addEventListener('mouseleave', function() {
+                        setTimeout(function() {
+                            chatMessages.classList.remove('user-viewing');
+                        }, 2000);
+                    });
+                }
+                
+                // Восстанавливаем обработчик для кнопки чата
+                const chatButton = document.querySelector('.ai-chat-button');
+                if (chatButton) {
+                    chatButton.addEventListener('click', function() {
+                        // Даем немного времени на отрисовку чата
+                        setTimeout(() => {
+                            setupChatScrolling();
+                            updateScrollIndicators();
+                        }, 100);
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <!-- Добавляем базовые скрипты -->
+    <script src="background-effects.js"></script>
+</body>
+</html> 
